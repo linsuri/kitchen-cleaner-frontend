@@ -1,1 +1,1 @@
-# mod-4-project-frontend
+# Cook Smart Front-end
