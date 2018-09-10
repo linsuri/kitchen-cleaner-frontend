@@ -4,7 +4,7 @@ import { Segment, Button } from 'semantic-ui-react'
 
 const IngredientsContainer = (props) => {
 
-  let ingredientsArr = props.ingredients.map(ingredient => <Ingredient key={ingredient} ingredient={ingredient}/>)
+  let ingredientsArr = props.ingredients.map(ingredient => <Ingredient key={ingredient} ingredient={ingredient} removeIngredient={props.removeIngredient }/>)
 
   return (
     <Segment raised>

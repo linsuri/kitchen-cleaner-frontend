@@ -5,7 +5,7 @@ import IngredientsContainer from './IngredientsContainer'
 import RecipesContainer from './RecipesContainer'
 import './App.css';
 
-let url = `https://api.yummly.com/v1/api/recipes?_app_id=${APP_ID}&_app_key=${APP_KEY}`
+// let url = `https://api.yummly.com/v1/api/recipes?_app_id=${APP_ID}&_app_key=${APP_KEY}`
 
 class App extends Component {
 
@@ -23,6 +23,13 @@ class App extends Component {
     this.setState({ingredients: [...this.state.ingredients, this.state.input], input: ''})
   }
 
+  removeIngredient = event => {
+    console.log(event.target.parentNode.innerText)
+    this.setState({
+      ingredients: [...this.state.ingredients].filter(ingredient => ingredient !== event.target.parentNode.innerText)
+    }, () => console.log(this.state.ingredients))
+  }
+
   setAllowedIngredients = () => {
     let ingredientQueries = this.state.ingredients.map(ingredient => `&allowedIngredient[]=${ingredient}`)
     this.setState({allowedIngredients: ingredientQueries.join("")}, this.getRecipes)
@@ -30,7 +37,7 @@ class App extends Component {
 
   getRecipes = () => {
     // this.setAllowedIngredients()
-    let newUrl = (url+this.state.allowedIngredients)
+    // let newUrl = (url+this.state.allowedIngredients)
     // debugger
     fetch("http://localhost:3000/api/v1/show_recipes", {
       method: "POST",
@@ -53,13 +60,13 @@ class App extends Component {
   }
 
   render() {
-    console.log("state is", this.state);
+    // console.log("state is", this.state);
     return (
       <div>
         <AppHeader />
         <SearchBar handleIngredientSubmit={this.handleIngredientSubmit} handleChange={this.handleChange} input={this.state.input} />
-        <IngredientsContainer ingredients={this.state.ingredients} setAllowedIngredients={this.setAllowedIngredients}/>
-        <RecipesContainer recipes={this.state.recipes}/>
+        <IngredientsContainer ingredients={this.state.ingredients} setAllowedIngredients={this.setAllowedIngredients} removeIngredient={this.removeIngredient} />
+        <RecipesContainer recipes={this.state.recipes} />
       </div>
     );
   }

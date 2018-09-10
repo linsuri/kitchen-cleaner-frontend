@@ -1,11 +1,12 @@
 import React from 'react'
-// import { List } from 'semantic-ui-react'
+import { Icon, Label } from 'semantic-ui-react'
 
 const Ingredient = (props) => {
   return (
-    <p>
+    <Label>
       {props.ingredient}
-    </p>
+      <Icon name='delete' onClick={props.removeIngredient}/>
+    </Label>
   )
 }
 

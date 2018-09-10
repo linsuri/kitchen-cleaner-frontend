@@ -6,17 +6,34 @@ const Recipe = (props) => {
   let {imageUrlsBySize, recipeName, sourceDisplayName} = props.recipe
   let {course, cuisine} = props.recipe.attributes
   let desc = `Course: ${course}  |  Cuisine: ${cuisine}`
-  let image = imageUrlsBySize[90].slice(0, -6)
 
-  return (
-    <div className='ui four wide column'>
-      <div className='ui card'>
+  const renderImages = () => {
+    if (imageUrlsBySize) {
+      let formattedImage = imageUrlsBySize[90].slice(0, -6)
+      return (
+        // image={formattedImage}
         <Card
-          image={image}
+          image={formattedImage}
           header={recipeName}
           meta={sourceDisplayName}
           description={desc}
         />
+      )
+    } else {
+      return (
+        <Card
+          header={recipeName}
+          meta={sourceDisplayName}
+          description={desc}
+        />
+      )
+    }
+  }
+
+  return (
+    <div className='ui four wide column'>
+      <div className='ui card'>
+        {renderImages()}
       </div>
     </div>
   )
