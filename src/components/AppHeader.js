@@ -3,12 +3,12 @@ import { Container, Header } from 'semantic-ui-react'
 
 const AppHeader = () => {
   return (
-    <Container text>
-        <Header
-          className="header"
-          as="h2"
-          content="Cook Smart"
-        />
+    <Container style={{padding:'70px', width:'100%', backgroundColor:'pink'}}>
+      <Header
+        as="h1">
+        Cook Smart
+        <Header.Subheader>Find Recipes for the Ingredients You Already Have</Header.Subheader>
+      </Header>
     </Container>
   )
 }

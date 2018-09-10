@@ -32,10 +32,10 @@ const Recipe = (props) => {
 
   return (
     <div className='ui four wide column'>
-      <div className='ui card'>
+      <div>
         {renderImages()}
       </div>
-    </div>
+   </div>
   )
 }
 

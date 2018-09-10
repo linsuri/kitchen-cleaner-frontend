@@ -1,16 +1,16 @@
 import React from 'react'
 import Ingredient from './Ingredient'
-import { Segment, Button } from 'semantic-ui-react'
+import { Container, Button, Label } from 'semantic-ui-react'
 
 const IngredientsContainer = (props) => {
 
   let ingredientsArr = props.ingredients.map(ingredient => <Ingredient key={ingredient} ingredient={ingredient} removeIngredient={props.removeIngredient }/>)
 
   return (
-    <Segment raised>
+    <Label.Group size="big" className="ui grid container centered">
         {ingredientsArr}
-        {props.ingredients.length === 0 ? null : <Button fluid onClick={props.setAllowedIngredients}>Get Recipes</Button>}
-    </Segment>
+        {props.ingredients.length === 0 ? null : <Button style={{margin:'20px'}} size="big" fluid onClick={props.setAllowedIngredients}>Get Recipes</Button>}
+    </Label.Group>
   )
 }
 
