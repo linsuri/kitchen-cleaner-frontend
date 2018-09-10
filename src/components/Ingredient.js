@@ -1,11 +1,11 @@
 import React from 'react'
 import { List } from 'semantic-ui-react'
 
-const Ingredient = () => {
+const Ingredient = (props) => {
   return (
-    <List>
-
-    </List>
+    <p>
+      {props.ingredient}
+    </p>
   )
 }
 

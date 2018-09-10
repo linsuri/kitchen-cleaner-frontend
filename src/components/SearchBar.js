@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Button } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 
 const SearchBar = (props) => {
 
@@ -8,9 +8,9 @@ const SearchBar = (props) => {
       <Input focus className="search-bar"
         placeholder="Add Ingredients Here..."
         value={props.input}
-        onChange={props.handleChange}  
+        onChange={props.handleChange}
+        action='Add Ingredient'
       />
-      <Button>Add</Button>
     </form>
   )
 
