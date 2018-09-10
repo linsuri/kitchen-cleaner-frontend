@@ -2,17 +2,26 @@
   text-align: center;
 }
 
+.header-container {
+  padding: 70px;
+  width: 100%;
+  background-image: url("../imgs/basil-background.jpg");
+  /* opacity: 0.5; */
+  background-position: center center;
+}
+
 .header {
   text-align: center;
   font-size: 3em;
+/* background: white;  */
   font-weight: normal;
   margin-bottom: 0;
   margin-top: 20px;
 }
 
-.App-title {
+/* .App-title {
   font-size: 1.5em;
-}
+} */
 
 .search-bar {
   margin: 20px;

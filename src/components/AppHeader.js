@@ -1,15 +1,17 @@
 import React from 'react'
 import { Container, Header } from 'semantic-ui-react'
+// import Background from '../imgs/basil-background.jpg'
+
 
 const AppHeader = () => {
   return (
-    <Container style={{padding:'70px', width:'100%', backgroundColor:'pink'}}>
+    <div className="header-container">
       <Header
         as="h1">
         Cook Smart
         <Header.Subheader>Find Recipes for the Ingredients You Already Have</Header.Subheader>
       </Header>
-    </Container>
+    </div>
   )
 }
 
