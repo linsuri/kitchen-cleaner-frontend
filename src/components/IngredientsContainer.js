@@ -9,7 +9,7 @@ const IngredientsContainer = (props) => {
   return (
     <Segment raised>
         {ingredientsArr}
-        {props.ingredients.length === 0 ? null : <Button onClick={props.getRecipes}>Get Recipes</Button>}
+        {props.ingredients.length === 0 ? null : <Button fluid onClick={props.setAllowedIngredients}>Get Recipes</Button>}
     </Segment>
   )
 }

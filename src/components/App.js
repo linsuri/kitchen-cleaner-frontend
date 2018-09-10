@@ -28,23 +28,40 @@ class App extends Component {
 
   setAllowedIngredients = () => {
     let ingredientQueries = this.state.ingredients.map(ingredient => `&allowedIngredient[]=${ingredient}`)
-    this.setState({allowedIngredients: ingredientQueries.join("")})
+    this.setState({allowedIngredients: ingredientQueries.join("")}, this.getRecipes)
   }
 
-  getRecipes = event => {
-    this.setAllowedIngredients()
+  getRecipes = () => {
+    // this.setAllowedIngredients()
     let newUrl = (url+this.state.allowedIngredients)
-    fetch(`${newUrl}`)
+    // debugger
+    fetch("http://localhost:3000/api/v1/show_recipes", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ingredients: this.state.allowedIngredients
+      })
+    })
     .then(res => res.json())
-    .then(json => this.setState({recipes: json.matches}))
+    .then(json => {
+      this.setState({recipes: json.matches})
+    })
+    // fetch(`${newUrl}`)
+    // .then(res => res.json())
+    // .then(json => {
+    //   this.setState({recipes: json.matches})
+    // })
   }
 
   render() {
+    console.log("state is", this.state);
     return (
       <div>
         <AppHeader />
         <SearchBar handleIngredientSubmit={this.handleIngredientSubmit} handleChange={this.handleChange} input={this.state.input} />
-        <IngredientsContainer ingredients={this.state.ingredients} getRecipes={this.getRecipes}/>
+        <IngredientsContainer ingredients={this.state.ingredients} setAllowedIngredients={this.setAllowedIngredients}/>
         <RecipesContainer recipes={this.state.recipes}/>
       </div>
     );
