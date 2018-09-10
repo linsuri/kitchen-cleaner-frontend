@@ -5,9 +5,6 @@ import IngredientsContainer from './IngredientsContainer'
 import RecipesContainer from './RecipesContainer'
 import './App.css';
 
-const APP_ID = '8d1d3268'
-const APP_KEY = 'ccb8a47a38fe914e9ab5698068bc2dec'
-// let ingredientQuery = `&allowedIngredient[]=${this.state.input}`
 let url = `https://api.yummly.com/v1/api/recipes?_app_id=${APP_ID}&_app_key=${APP_KEY}`
 
 class App extends Component {
