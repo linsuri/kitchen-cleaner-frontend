@@ -1,6 +1,6 @@
 import React from 'react'
 import Ingredient from './Ingredient'
-import { List, Segment, Button } from 'semantic-ui-react'
+import { Segment, Button } from 'semantic-ui-react'
 
 const IngredientsContainer = (props) => {
 
@@ -8,10 +8,8 @@ const IngredientsContainer = (props) => {
 
   return (
     <Segment raised>
-      <Segment>
         {ingredientsArr}
-      </Segment>
-      {props.ingredients.length === 0 ? null : <Button onClick={props.getRecipes}>Get Recipes</Button>}
+        {props.ingredients.length === 0 ? null : <Button onClick={props.getRecipes}>Get Recipes</Button>}
     </Segment>
   )
 }

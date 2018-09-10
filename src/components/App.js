@@ -7,14 +7,14 @@ import './App.css';
 
 const APP_ID = '8d1d3268'
 const APP_KEY = 'ccb8a47a38fe914e9ab5698068bc2dec'
-let allowedIngredients = ''
 // let ingredientQuery = `&allowedIngredient[]=${this.state.input}`
-let url = "https://api.yummly.com/v1/api/recipes?_app_id=" + APP_ID + "&_app_key=" + APP_KEY + allowedIngredients
+let url = `https://api.yummly.com/v1/api/recipes?_app_id=${APP_ID}&_app_key=${APP_KEY}`
 
 class App extends Component {
 
   state = {
     input: '',
+    allowedIngredients: '',
     ingredients: [],
     recipes: []
   }
@@ -27,13 +27,14 @@ class App extends Component {
   }
 
   setAllowedIngredients = () => {
-    this.state.ingredients.map(ingredient => allowedIngredients += `&allowedIngredient[]=${ingredient}`)
-    // console.log(url)
+    let ingredientQueries = this.state.ingredients.map(ingredient => `&allowedIngredient[]=${ingredient}`)
+    this.setState({allowedIngredients: ingredientQueries.join("")})
   }
 
   getRecipes = event => {
     this.setAllowedIngredients()
-    fetch(url)
+    let newUrl = (url+this.state.allowedIngredients)
+    fetch(`${newUrl}`)
     .then(res => res.json())
     .then(json => this.setState({recipes: json.matches}))
   }
