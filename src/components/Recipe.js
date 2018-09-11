@@ -3,9 +3,10 @@ import { Card } from 'semantic-ui-react'
 
 const Recipe = (props) => {
 
-  let {imageUrlsBySize, recipeName, sourceDisplayName} = props.recipe
+  let {imageUrlsBySize, recipeName, sourceDisplayName, id} = props.recipe
   let {course, cuisine} = props.recipe.attributes
   let desc = `Course: ${course}  |  Cuisine: ${cuisine}`
+  let href = `https://www.yummly.com/recipe/${id}`
 
   const renderImages = () => {
     if (imageUrlsBySize) {
@@ -13,6 +14,9 @@ const Recipe = (props) => {
       return (
         // image={formattedImage}
         <Card
+          as="a"
+          href={href}
+          target="_blank"
           image={formattedImage}
           header={recipeName}
           meta={sourceDisplayName}
@@ -22,6 +26,9 @@ const Recipe = (props) => {
     } else {
       return (
         <Card
+          as="a"
+          href={href}
+          target="_blank"
           header={recipeName}
           meta={sourceDisplayName}
           description={desc}

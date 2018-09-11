@@ -30,6 +30,14 @@ class App extends Component {
     }
   }
 
+  reset = () => {
+    this.setState({
+      ingredients: [],
+      allowedIngredients: '',
+      recipes: []
+    })
+  }
+
   removeIngredient = event => {
     this.setState({
       ingredients: [...this.state.ingredients].filter(ingredient => ingredient !== event.target.parentNode.innerText),
@@ -71,13 +79,13 @@ class App extends Component {
   }
 
   render() {
-    // console.log("state is", this.state);
+    console.log("state.recipe is", this.state.recipes);
     return (
       <div>
         <AppHeader />
         <SearchBar handleIngredientSubmit={this.handleIngredientSubmit} handleChange={this.handleChange} input={this.state.input} />
-        <IngredientsContainer ingredients={this.state.ingredients} setAllowedIngredients={this.setAllowedIngredients} removeIngredient={this.removeIngredient} />
-        <RecipesContainer recipes={this.state.recipes} noResults={this.state.noResults}/>
+        <IngredientsContainer ingredients={this.state.ingredients} setAllowedIngredients={this.setAllowedIngredients} removeIngredient={this.removeIngredient} reset={this.reset} />
+        <RecipesContainer ingredients={this.state.ingredients} recipes={this.state.recipes} noResults={this.state.noResults}/>
       </div>
     );
   }

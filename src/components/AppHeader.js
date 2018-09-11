@@ -1,7 +1,5 @@
 import React from 'react'
-import { Container, Header } from 'semantic-ui-react'
-// import Background from '../imgs/basil-background.jpg'
-
+import { Header } from 'semantic-ui-react'
 
 const AppHeader = () => {
   return (
