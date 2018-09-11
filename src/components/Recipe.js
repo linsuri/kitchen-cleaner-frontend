@@ -5,6 +5,8 @@ const Recipe = (props) => {
 
   let {imageUrlsBySize, recipeName, sourceDisplayName, id} = props.recipe
   let {course, cuisine} = props.recipe.attributes
+  course ? course = course : course = "None"
+  cuisine ? cuisine = cuisine : cuisine = "None"
   let desc = `Course: ${course}  |  Cuisine: ${cuisine}`
   let href = `https://www.yummly.com/recipe/${id}`
 

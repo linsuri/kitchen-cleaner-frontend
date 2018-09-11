@@ -79,7 +79,7 @@ class App extends Component {
   }
 
   render() {
-    console.log("state.recipe is", this.state.recipes);
+    // console.log("state.recipe is", this.state.recipes);
     return (
       <div>
         <AppHeader />
