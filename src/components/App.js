@@ -13,21 +13,28 @@ class App extends Component {
     input: '',
     allowedIngredients: '',
     ingredients: [],
-    recipes: []
+    recipes: [],
+    noResults: false
   }
 
   handleChange = event => this.setState({input: event.target.value})
 
   handleIngredientSubmit = event => {
     event.preventDefault()
-    this.setState({ingredients: [...this.state.ingredients, this.state.input], input: ''})
+    if (this.state.input !== '') {
+      this.setState({
+        ingredients: [...this.state.ingredients, this.state.input],
+        input: '',
+        noResults: false
+      })
+    }
   }
 
   removeIngredient = event => {
-    console.log(event.target.parentNode.innerText)
     this.setState({
-      ingredients: [...this.state.ingredients].filter(ingredient => ingredient !== event.target.parentNode.innerText)
-    }, () => console.log(this.state.ingredients))
+      ingredients: [...this.state.ingredients].filter(ingredient => ingredient !== event.target.parentNode.innerText),
+      noResults: false
+    })
   }
 
   setAllowedIngredients = () => {
@@ -50,7 +57,11 @@ class App extends Component {
     })
     .then(res => res.json())
     .then(json => {
-      this.setState({recipes: json.matches})
+      if (json.matches.length !== 0) {
+        this.setState({recipes: json.matches})
+      } else {
+        this.setState({noResults: true})
+      }
     })
     // fetch(`${newUrl}`)
     // .then(res => res.json())
@@ -66,7 +77,7 @@ class App extends Component {
         <AppHeader />
         <SearchBar handleIngredientSubmit={this.handleIngredientSubmit} handleChange={this.handleChange} input={this.state.input} />
         <IngredientsContainer ingredients={this.state.ingredients} setAllowedIngredients={this.setAllowedIngredients} removeIngredient={this.removeIngredient} />
-        <RecipesContainer recipes={this.state.recipes} />
+        <RecipesContainer recipes={this.state.recipes} noResults={this.state.noResults}/>
       </div>
     );
   }
