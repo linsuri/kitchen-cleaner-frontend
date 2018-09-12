@@ -4,6 +4,7 @@ import SearchBar from './SearchBar'
 import IngredientsContainer from './IngredientsContainer'
 import RecipesContainer from './RecipesContainer'
 import SignUpLogIn from './SignUpLogIn'
+import FavoritesContainer from './FavoritesContainer'
 import './App.css';
 
 // let url = `https://api.yummly.com/v1/api/recipes?_app_id=${APP_ID}&_app_key=${APP_KEY}`
@@ -19,7 +20,9 @@ class App extends Component {
     showSignUpLogIn: false,
     usernameInput: '',
     errorMesssage: '',
-    user: {}
+    loggedin: false,
+    user: {},
+    showFavoritesContainer: false
   }
 
   handleChange = event => this.setState({ingredientInput: event.target.value})
@@ -83,6 +86,30 @@ class App extends Component {
     // })
   }
 
+  showFavoritesContainer = () => {
+    this.setState({
+      showFavoritesContainer: true
+    })
+  }
+
+  hideFavoritesContainer = event => {
+    // event.target.parentNode.className = "hide-favorites-container"
+    // console.log(event.target.parentNode)
+    // debugger
+    // this.changeState()
+    // setTimeout(() => {
+      this.setState({
+        showFavoritesContainer: false
+      })
+    // }, 2000)
+  }
+
+  changeState = () => {
+    this.setState({
+        showFavoritesContainer: false
+      })
+  }
+
   showSignUpLogIn = () => {
     this.setState({
       showSignUpLogIn: true
@@ -118,8 +145,10 @@ class App extends Component {
       } else {
         this.setState({
           user: json,
-          usernameInput: ''
-        }, () => console.log(this.state))
+          usernameInput: '',
+          loggedin: true,
+          showSignUpLogIn: false
+        }, () => console.log(this.state.user))
       }
     })
   }
@@ -130,10 +159,49 @@ class App extends Component {
     .then(res => res.json())
     .then(json => {
       let findUser = json.find(user => user.name === this.state.usernameInput)
-      this.setState({
-        user: findUser,
-        usernameInput: ''
-      }, () => console.log(this.state.user))
+      if (findUser) {
+        this.setState({
+          user: findUser,
+          usernameInput: '',
+          loggedin: true,
+          showSignUpLogIn: false
+        }, () => console.log(this.state.user))
+      } else {
+        this.setState({
+          errorMesssage: 'Invalid username',
+          usernameInput: ''
+        })
+      }
+    })
+  }
+
+  /////////////////// Params is not correct. Backend would not take params, therefore not saving.
+  saveFavorite = (recipe) => {
+    fetch("http://localhost:3000/api/v1/recipes", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        recipe_object: recipe,
+        user: this.state.user
+      })
+    })
+    .then(res => res.json())
+    .then(json => {console.log(json)
+      // if (json.errors) {
+      //   this.setState({
+      //     errorMesssage: json.errors,
+      //     usernameInput: ''
+      //   })
+      // } else {
+      //   this.setState({
+      //     user: json,
+      //     usernameInput: '',
+      //     loggedin: true,
+      //     showSignUpLogIn: false
+      //   }, () => console.log(this.state.user))
+      // }
     })
   }
 
@@ -145,6 +213,9 @@ class App extends Component {
         <AppHeader
           showSignUpLogIn={this.showSignUpLogIn}
           hideSignUpLogIn={this.hideSignUpLogIn}
+          showFavoritesContainer={this.showFavoritesContainer}
+          loggedin={this.state.loggedin}
+          user={this.state.user}
         />
         <SearchBar
           handleIngredientSubmit={this.handleIngredientSubmit}
@@ -163,8 +234,10 @@ class App extends Component {
           ingredients={this.state.ingredients}
           recipes={this.state.recipes}
           noResults={this.state.noResults}
-          hideSignUpLogIn={this.hideSignUpLogIn}
+          hideFavoritesContainer={this.hideFavoritesContainer}
+          saveFavorite={this.saveFavorite}
         />
+        {this.state.showFavoritesContainer ? <FavoritesContainer hideSignUpLogIn={this.hideSignUpLogIn} hideFavoritesContainer={this.hideFavoritesContainer} /> : null}
       </div>
     );
   }

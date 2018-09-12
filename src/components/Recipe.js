@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from 'semantic-ui-react'
+import { Card, Icon, Image } from 'semantic-ui-react'
 
 const Recipe = (props) => {
 
@@ -15,26 +15,34 @@ const Recipe = (props) => {
       let formattedImage = imageUrlsBySize[90].slice(0, -6)
       return (
         // image={formattedImage}
-        <Card
-          as="a"
-          href={href}
-          target="_blank"
-          image={formattedImage}
-          header={recipeName}
-          meta={sourceDisplayName}
-          description={desc}
-        />
+        <Card>
+          <Image src={formattedImage} as="a" href={href} target="_blank" />
+          <Card.Content as="a" href={href} target="_blank">
+                <Card.Header>{recipeName}</Card.Header>
+                <Card.Meta>{sourceDisplayName}</Card.Meta>
+                <Card.Description>{desc}</Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <a>
+                  <Icon name='heart' onClick={() => props.saveFavorite(props.recipe)}/>
+                </a>
+              </Card.Content>
+        </Card>
       )
     } else {
       return (
-        <Card
-          as="a"
-          href={href}
-          target="_blank"
-          header={recipeName}
-          meta={sourceDisplayName}
-          description={desc}
-        />
+        <Card as="a" href={href} target="_blank">
+          <Card.Content>
+                <Card.Header>{recipeName}</Card.Header>
+                <Card.Meta>{sourceDisplayName}</Card.Meta>
+                <Card.Description>{desc}</Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <a>
+                  <Icon name='heart' onClick={props.saveFavorite}/>
+                </a>
+              </Card.Content>
+        </Card>
       )
     }
   }

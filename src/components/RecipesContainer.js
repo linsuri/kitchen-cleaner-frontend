@@ -6,7 +6,7 @@ const RecipesContainer = (props) => {
 
   const recipesArr = () => {
     if (props.ingredients.length !== 0) {
-      return props.recipes.map(recipe => <Recipe key={recipe.id} recipe={recipe}/>)
+      return props.recipes.map(recipe => <Recipe key={recipe.id} recipe={recipe}           saveFavorite={props.saveFavorite} />)
     }
   }
 
