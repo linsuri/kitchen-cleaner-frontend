@@ -130,13 +130,11 @@ class App extends Component {
     .then(res => res.json())
     .then(json => {
       let findUser = json.find(user => user.name === this.state.usernameInput)
-      // console.log(this.state.usernameInput)
       this.setState({
         user: findUser,
         usernameInput: ''
-      })
+      }, () => console.log(this.state.user))
     })
-    // this.setState({usernameInput: ''})
   }
 
   render() {
