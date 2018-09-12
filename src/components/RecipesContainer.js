@@ -11,7 +11,7 @@ const RecipesContainer = (props) => {
   }
 
   return (
-    <div className='ui grid container'>
+    <div className='ui grid container' onClick={props.hideSignUpLogIn}>
       {props.noResults === false ? recipesArr() : <div className='ui grid container centered'><Message size="big" header='No result matches' content='Try removing an ingredient for recipe result.' /></div>}
     </div>
   )

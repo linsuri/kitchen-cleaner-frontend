@@ -3,6 +3,7 @@ import AppHeader from './AppHeader'
 import SearchBar from './SearchBar'
 import IngredientsContainer from './IngredientsContainer'
 import RecipesContainer from './RecipesContainer'
+import SignUpLogIn from './SignUpLogIn'
 import './App.css';
 
 // let url = `https://api.yummly.com/v1/api/recipes?_app_id=${APP_ID}&_app_key=${APP_KEY}`
@@ -10,21 +11,25 @@ import './App.css';
 class App extends Component {
 
   state = {
-    input: '',
+    ingredientInput: '',
     allowedIngredients: '',
     ingredients: [],
     recipes: [],
-    noResults: false
+    noResults: false,
+    showSignUpLogIn: false,
+    usernameInput: '',
+    errorMesssage: '',
+    user: {}
   }
 
-  handleChange = event => this.setState({input: event.target.value})
+  handleChange = event => this.setState({ingredientInput: event.target.value})
 
   handleIngredientSubmit = event => {
     event.preventDefault()
-    if (this.state.input !== '') {
+    if (this.state.ingredientInput !== '') {
       this.setState({
-        ingredients: [...this.state.ingredients, this.state.input],
-        input: '',
+        ingredients: [...this.state.ingredients, this.state.ingredientInput],
+        ingredientInput: '',
         noResults: false
       })
     }
@@ -78,14 +83,90 @@ class App extends Component {
     // })
   }
 
+  showSignUpLogIn = () => {
+    this.setState({
+      showSignUpLogIn: true
+    })
+  }
+
+  hideSignUpLogIn = () => {
+    this.setState({
+      showSignUpLogIn: false
+    })
+  }
+
+  handleUsernameInput = event => this.setState({usernameInput: event.target.value})
+
+  signUp = event => {
+    event.preventDefault()
+    fetch("http://localhost:3000/api/v1/users", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: this.state.usernameInput
+      })
+    })
+    .then(res => res.json())
+    .then(json => {
+      if (json.errors) {
+        this.setState({
+          errorMesssage: json.errors,
+          usernameInput: ''
+        })
+      } else {
+        this.setState({
+          user: json,
+          usernameInput: ''
+        }, () => console.log(this.state))
+      }
+    })
+  }
+
+  logIn = event => {
+    event.preventDefault()
+    fetch("http://localhost:3000/api/v1/users")
+    .then(res => res.json())
+    .then(json => {
+      let findUser = json.find(user => user.name === this.state.usernameInput)
+      // console.log(this.state.usernameInput)
+      this.setState({
+        user: findUser,
+        usernameInput: ''
+      })
+    })
+    // this.setState({usernameInput: ''})
+  }
+
   render() {
-    // console.log("state.recipe is", this.state.recipes);
+    // console.log(this.signUpLogIn);
     return (
       <div>
-        <AppHeader />
-        <SearchBar handleIngredientSubmit={this.handleIngredientSubmit} handleChange={this.handleChange} input={this.state.input} />
-        <IngredientsContainer ingredients={this.state.ingredients} setAllowedIngredients={this.setAllowedIngredients} removeIngredient={this.removeIngredient} reset={this.reset} />
-        <RecipesContainer ingredients={this.state.ingredients} recipes={this.state.recipes} noResults={this.state.noResults}/>
+        {this.state.showSignUpLogIn ? <SignUpLogIn signUp={this.signUp} logIn={this.logIn} usernameInput={this.state.usernameInput} handleUsernameInput={this.handleUsernameInput} errorMesssage={this.state.errorMesssage} /> : null}
+        <AppHeader
+          showSignUpLogIn={this.showSignUpLogIn}
+          hideSignUpLogIn={this.hideSignUpLogIn}
+        />
+        <SearchBar
+          handleIngredientSubmit={this.handleIngredientSubmit}
+          handleChange={this.handleChange}
+          hideSignUpLogIn={this.hideSignUpLogIn}
+          ingredientInput={this.state.ingredientInput}
+        />
+        <IngredientsContainer
+          ingredients={this.state.ingredients}
+          setAllowedIngredients={this.setAllowedIngredients}
+          removeIngredient={this.removeIngredient}
+          hideSignUpLogIn={this.hideSignUpLogIn}
+          reset={this.reset}
+        />
+        <RecipesContainer
+          ingredients={this.state.ingredients}
+          recipes={this.state.recipes}
+          noResults={this.state.noResults}
+          hideSignUpLogIn={this.hideSignUpLogIn}
+        />
       </div>
     );
   }

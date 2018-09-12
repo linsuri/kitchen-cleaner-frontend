@@ -10,7 +10,6 @@
   background-color: rgba(255, 255, 255, 0.4);
   background-blend-mode: lighten;
   background-position: center center;
-  z-index: -1;
 }
 
 .header {
@@ -33,4 +32,20 @@
 
 .search-bar input {
   width: 50%;
+}
+
+.sign-up-log-in {
+  z-index: 2;
+  width: 400px;
+  position: absolute;
+  top: 22%;
+  left: 35%;
+  opacity: 1;
+  animation: moveup 2s;
+  animation-timing-function: ease-out;
+}
+
+@keyframes moveup {
+  from {top: 26%; opacity: 0.4}
+  to {top: 22%; opacity: 1}
 }
