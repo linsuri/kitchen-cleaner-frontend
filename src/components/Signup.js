@@ -4,7 +4,7 @@ import * as actions from  '../actions'
 import { Form, Button, Message } from 'semantic-ui-react'
 
 class Signup extends React.Component {
-  
+
   state = {
     usernameInput: '',
     passwordInput: '',
@@ -15,6 +15,7 @@ class Signup extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
     this.props.signUp(this.state.usernameInput, this.state.passwordInput)
+    this.setState({usernameInput: '', passwordInput: ''})
   }
 
   render() {
@@ -24,9 +25,9 @@ class Signup extends React.Component {
           <h3>Welcome!</h3>
           <Form.Field>
             <label>Username</label>
-            <input className='usernameInput' placeholder='Username' value={this.state.usernameInput} onChange={this.handleInput} />
+            <input className='usernameInput' value={this.state.usernameInput} onChange={this.handleInput} />
             <label>Password</label>
-            <input className='passwordInput' placeholder='Password' value={this.state.passwordInput} onChange={this.handleInput} type='password' />
+            <input className='passwordInput' value={this.state.passwordInput} onChange={this.handleInput} type='password' />
           </Form.Field>
           <Button type='submit'>Sign Up</Button>
         </Form>

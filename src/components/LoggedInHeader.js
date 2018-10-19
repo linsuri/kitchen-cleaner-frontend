@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from  '../actions'
-import SignUpLogIn from './SignUpLogIn'
-import { TransitionablePortal, Segment, Header, Button } from 'semantic-ui-react'
+import { Header } from 'semantic-ui-react'
+// import { TransitionablePortal, Segment, Header, Button } from 'semantic-ui-react'
 
 class LoggedOutHeader extends React.Component {
 
@@ -19,7 +19,7 @@ class LoggedOutHeader extends React.Component {
             <SignUpLogIn />
           </Segment>
         </TransitionablePortal> */}
-        <h1>Welcome, {this.props.user.user_name}</h1>
+        <Header style={{position:'absolute', top:'10px', right:'20px', margin:'10px'}} as='h3' textAlign='right'>Welcome, {this.props.user.user_name}!</Header>
         <Header as="h1">
           Cook Smart
           <Header.Subheader>Find Recipes for the Ingredients You Already Have</Header.Subheader>

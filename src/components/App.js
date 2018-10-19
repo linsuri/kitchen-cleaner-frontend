@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import * as actions from  '../actions'
 import LoggedOutHeader from './LoggedOutHeader'
 import LoggedInHeader from './LoggedInHeader'
 // import AppHeader from './AppHeader'
@@ -20,6 +21,10 @@ class App extends Component {
     recipes: [],
     noResults: false,
     showFavoritesContainer: false
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem('jwt') && !this.props.loggedIn) this.props.fetchCurrentUser()
   }
 
   handleChange = event => this.setState({ingredientInput: event.target.value})
@@ -175,4 +180,4 @@ const mapStateToProps = ({ usersReducer: { user, loggedIn } }) => {
   }
 }
 
-export default connect(mapStateToProps, null)(App)
+export default connect(mapStateToProps, actions)(App)
