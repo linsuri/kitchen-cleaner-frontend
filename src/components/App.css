@@ -34,7 +34,7 @@
   width: 50%;
 }
 
-.sign-up-log-in {
+/* .sign-up-log-in {
   z-index: 3;
   width: 400px;
   position: absolute;
@@ -43,12 +43,12 @@
   opacity: 1;
   animation: moveup 0.5s;
   animation-timing-function: ease;
-}
+} */
 
-@keyframes moveup {
+/* @keyframes moveup {
   from {top: 26%; opacity: 0.6}
   to {top: 22%; opacity: 1}
-}
+} */
 
 .show-favorites-container {
   z-index: 2;

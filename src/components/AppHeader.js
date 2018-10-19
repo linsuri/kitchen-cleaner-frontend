@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import { Header, Button } from 'semantic-ui-react'
 
 const AppHeader = (props) => {
@@ -7,14 +9,14 @@ const AppHeader = (props) => {
 
   const usernameAndMyFavorites =
     <div style={{position:'absolute', top:'0', right:'0', margin:'10px'}}>
-      <h3>Welcome, {props.user.name}!</h3>
+      {/* <h3>Welcome, {props.user.user_name}!</h3> */}
       <Button content="My Favorites" onClick={props.showFavoritesContainer} />
     </div>
 
-  // const
+  console.log(props)
   return (
     <div className="header-container">
-      {!props.loggedin ? logInButton : usernameAndMyFavorites}
+      {!props.loggedIn ? logInButton : usernameAndMyFavorites}
       <div onClick={props.hideSignUpLogIn}>
         <Header as="h1">
           Cook Smart
@@ -25,4 +27,12 @@ const AppHeader = (props) => {
   )
 }
 
-export default AppHeader
+const mapStateToProps = ({ usersReducer: { user, loggedIn, error } }) => {
+  return {
+    user,
+    loggedIn,
+    error,
+  }
+}
+
+export default connect(mapStateToProps, null)(AppHeader)

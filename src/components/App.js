@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import AppHeader from './AppHeader'
+import { connect } from 'react-redux'
+import LoggedOutHeader from './LoggedOutHeader'
+import LoggedInHeader from './LoggedInHeader'
+// import AppHeader from './AppHeader'
 import SearchBar from './SearchBar'
 import IngredientsContainer from './IngredientsContainer'
 import RecipesContainer from './RecipesContainer'
-import SignUpLogIn from './SignUpLogIn'
+// import SignUpLogIn from './SignUpLogIn'
 import FavoritesContainer from './FavoritesContainer'
 import './App.css';
 
@@ -17,11 +20,11 @@ class App extends Component {
     ingredients: [],
     recipes: [],
     noResults: false,
-    showSignUpLogIn: false,
-    usernameInput: '',
-    errorMesssage: '',
-    loggedin: false,
-    user: {},
+    // showSignUpLogIn: false,
+    // usernameInput: '',
+    // errorMesssage: '',
+    // loggedin: false,
+    // user: {},
     showFavoritesContainer: false
   }
 
@@ -209,14 +212,13 @@ class App extends Component {
     // console.log(this.signUpLogIn);
     return (
       <div>
-        {this.state.showSignUpLogIn ? <SignUpLogIn signUp={this.signUp} logIn={this.logIn} usernameInput={this.state.usernameInput} handleUsernameInput={this.handleUsernameInput} errorMesssage={this.state.errorMesssage} /> : null}
-        <AppHeader
+        {/* {this.state.showSignUpLogIn ? <SignUpLogIn signUp={this.signUp} logIn={this.logIn} usernameInput={this.state.usernameInput} handleUsernameInput={this.handleUsernameInput} errorMesssage={this.state.errorMesssage} /> : null} */}
+        {/* <AppHeader
           showSignUpLogIn={this.showSignUpLogIn}
           hideSignUpLogIn={this.hideSignUpLogIn}
           showFavoritesContainer={this.showFavoritesContainer}
-          loggedin={this.state.loggedin}
-          user={this.state.user}
-        />
+        /> */}
+        {this.props.loggedIn ? <LoggedInHeader /> : <LoggedOutHeader />}
         <SearchBar
           handleIngredientSubmit={this.handleIngredientSubmit}
           handleChange={this.handleChange}
@@ -243,4 +245,13 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = ({ usersReducer: { user, loggedIn, failedLogin, error } }) => {
+  return {
+    user,
+    loggedIn,
+    failedLogin,
+    error,
+  }
+}
+
+export default connect(mapStateToProps, null)(App)
