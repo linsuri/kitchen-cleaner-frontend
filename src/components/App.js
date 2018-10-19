@@ -6,7 +6,6 @@ import LoggedInHeader from './LoggedInHeader'
 import SearchBar from './SearchBar'
 import IngredientsContainer from './IngredientsContainer'
 import RecipesContainer from './RecipesContainer'
-// import SignUpLogIn from './SignUpLogIn'
 import FavoritesContainer from './FavoritesContainer'
 import './App.css';
 
@@ -20,11 +19,6 @@ class App extends Component {
     ingredients: [],
     recipes: [],
     noResults: false,
-    // showSignUpLogIn: false,
-    // usernameInput: '',
-    // errorMesssage: '',
-    // loggedin: false,
-    // user: {},
     showFavoritesContainer: false
   }
 
@@ -113,71 +107,6 @@ class App extends Component {
       })
   }
 
-  showSignUpLogIn = () => {
-    this.setState({
-      showSignUpLogIn: true
-    })
-  }
-
-  hideSignUpLogIn = () => {
-    this.setState({
-      showSignUpLogIn: false
-    })
-  }
-
-  handleUsernameInput = event => this.setState({usernameInput: event.target.value})
-
-  signUp = event => {
-    event.preventDefault()
-    fetch("http://localhost:3000/api/v1/users", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: this.state.usernameInput
-      })
-    })
-    .then(res => res.json())
-    .then(json => {
-      if (json.errors) {
-        this.setState({
-          errorMesssage: json.errors,
-          usernameInput: ''
-        })
-      } else {
-        this.setState({
-          user: json,
-          usernameInput: '',
-          loggedin: true,
-          showSignUpLogIn: false
-        }, () => console.log(this.state.user))
-      }
-    })
-  }
-
-  logIn = event => {
-    event.preventDefault()
-    fetch("http://localhost:3000/api/v1/users")
-    .then(res => res.json())
-    .then(json => {
-      let findUser = json.find(user => user.name === this.state.usernameInput)
-      if (findUser) {
-        this.setState({
-          user: findUser,
-          usernameInput: '',
-          loggedin: true,
-          showSignUpLogIn: false
-        }, () => console.log(this.state.user))
-      } else {
-        this.setState({
-          errorMesssage: 'Invalid username',
-          usernameInput: ''
-        })
-      }
-    })
-  }
-
   /////////////////// Params is not correct. Backend would not take params, therefore not saving.
   saveFavorite = (recipe) => {
     fetch("http://localhost:3000/api/v1/recipes", {
@@ -212,12 +141,6 @@ class App extends Component {
     // console.log(this.signUpLogIn);
     return (
       <div>
-        {/* {this.state.showSignUpLogIn ? <SignUpLogIn signUp={this.signUp} logIn={this.logIn} usernameInput={this.state.usernameInput} handleUsernameInput={this.handleUsernameInput} errorMesssage={this.state.errorMesssage} /> : null} */}
-        {/* <AppHeader
-          showSignUpLogIn={this.showSignUpLogIn}
-          hideSignUpLogIn={this.hideSignUpLogIn}
-          showFavoritesContainer={this.showFavoritesContainer}
-        /> */}
         {this.props.loggedIn ? <LoggedInHeader /> : <LoggedOutHeader />}
         <SearchBar
           handleIngredientSubmit={this.handleIngredientSubmit}
@@ -245,12 +168,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ usersReducer: { user, loggedIn, failedLogin, error } }) => {
+const mapStateToProps = ({ usersReducer: { user, loggedIn } }) => {
   return {
     user,
     loggedIn,
-    failedLogin,
-    error,
   }
 }
 

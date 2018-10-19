@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import * as actions from  '../actions'
 import { Form, Button, Message } from 'semantic-ui-react'
 
-class Signup extends React.Component {
-  
+class Login extends React.Component {
+
   state = {
     usernameInput: '',
     passwordInput: '',
@@ -43,4 +43,4 @@ const mapStateToProps = ({ usersReducer: { error } }) => {
   }
 }
 
-export default connect(mapStateToProps, actions)(Signup)
+export default connect(mapStateToProps, actions)(Login)

@@ -88,6 +88,10 @@ export const logOut = () => {
   }
 }
 
+export const openSignUpLogIn = () => ({
+  type: 'OPEN_SIGN_UP_LOG_IN',
+})
+
 export const showLogInForm = () => ({
   type: 'SHOW_LOG_IN_FORM',
 })

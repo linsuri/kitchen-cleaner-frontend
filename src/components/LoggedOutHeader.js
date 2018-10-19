@@ -1,23 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import * as actions from  '../actions'
 import SignUpLogIn from './SignUpLogIn'
 import { TransitionablePortal, Segment, Header, Button } from 'semantic-ui-react'
 
 class LoggedOutHeader extends React.Component {
-  state = { open: false }
-
-  handleClick = () => this.setState({ open: !this.state.open })
 
   render() {
-    const { open } = this.state
-
+    
     return (
       <div className="header-container">
         <Button
           style={{position:'absolute', top:'0', right:'0', margin:'10px'}}
           content="Log In / Sign Up"
-          onClick={this.handleClick} />
-        <TransitionablePortal open={open} transition={{ animation: 'fade up', duration: 500 }}>
+          onClick={this.props.openSignUpLogIn} />
+        <TransitionablePortal open={this.props.openSignUpLogInBoolean}  onClose={this.props.openSignUpLogIn} transition={{ animation: 'fade up', duration: 500 }}>
           <Segment style={{ position: 'absolute', top: '22%', left: '35%', zIndex: 1000, backgroundColor: 'white', borderRadius: '5px', border: '1px solid #D4D4D5', height: '430px', width: '450px' }}>
             <SignUpLogIn />
           </Segment>
@@ -31,13 +28,10 @@ class LoggedOutHeader extends React.Component {
   }
 }
 
-const mapStateToProps = ({ usersReducer: { user, loggedIn, failedLogin, error } }) => {
+const mapStateToProps = ({ usersReducer: { openSignUpLogInBoolean } }) => {
   return {
-    user,
-    loggedIn,
-    failedLogin,
-    error,
+    openSignUpLogInBoolean,
   }
 }
 
-export default connect(mapStateToProps, null)(LoggedOutHeader)
+export default connect(mapStateToProps, actions)(LoggedOutHeader)

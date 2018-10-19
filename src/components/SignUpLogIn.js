@@ -19,10 +19,9 @@ const SignUpLogIn = props => {
 
 }
 
-const mapStateToProps = ({ usersReducer: { showLogInFormBoolean, error } }) => {
+const mapStateToProps = ({ usersReducer: { showLogInFormBoolean } }) => {
   return {
     showLogInFormBoolean,
-    error,
   }
 }
 
