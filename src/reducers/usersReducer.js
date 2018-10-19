@@ -5,6 +5,7 @@ const defaultState = {
   error: null,
   openSignUpLogInBoolean: false,
   showLogInFormBoolean: true,
+  showMenuBoolean: false,
 }
 
 const usersReducer = (state = defaultState, action) => {
@@ -46,6 +47,16 @@ const usersReducer = (state = defaultState, action) => {
         ...state,
         error: null,
         showLogInFormBoolean: false,
+      }
+    case 'SHOW_MENU':
+      return {
+        ...state,
+        showMenuBoolean: true,
+      }
+    case 'HIDE_MENU':
+      return {
+        ...state,
+        showMenuBoolean: false,
       }
     default:
       return state

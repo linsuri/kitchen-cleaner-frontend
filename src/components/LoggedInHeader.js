@@ -1,25 +1,42 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from  '../actions'
-import { Header } from 'semantic-ui-react'
-// import { TransitionablePortal, Segment, Header, Button } from 'semantic-ui-react'
+import { Header, Icon, Menu, Sidebar } from 'semantic-ui-react'
 
-class LoggedOutHeader extends React.Component {
+class LoggedInHeader extends React.Component {
 
   render() {
 
     return (
       <div className="header-container">
-        {/* <Button
-          style={{position:'absolute', top:'0', right:'0', margin:'10px'}}
-          content="Log In / Sign Up"
-          onClick={this.props.openSignUpLogIn} />
-        <TransitionablePortal open={this.props.openSignUpLogInBoolean}  onClose={this.props.openSignUpLogIn} transition={{ animation: 'fade up', duration: 500 }}>
-          <Segment style={{ position: 'absolute', top: '22%', left: '35%', zIndex: 1000, backgroundColor: 'white', borderRadius: '5px', border: '1px solid #D4D4D5', height: '430px', width: '450px' }}>
-            <SignUpLogIn />
-          </Segment>
-        </TransitionablePortal> */}
-        <Header style={{position:'absolute', top:'10px', right:'20px', margin:'10px'}} as='h3' textAlign='right'>Welcome, {this.props.user.user_name}!</Header>
+        <Header style={{position:'absolute', top:'10px', right:'50px', margin:'10px'}} as='h3' textAlign='right'>Welcome, {this.props.user.user_name}!</Header>
+
+        <Icon name='bars' link size='big' style={{position:'absolute', top:'18px', right:'15px'}} onClick={this.props.showMenu}/>
+
+        <Sidebar
+          as={Menu}
+          animation='overlay'
+          icon='labeled'
+          direction='right'
+          onHide={this.props.hideMenu}
+          vertical
+          visible={this.props.showMenuBoolean}
+          width='very wide'
+        >
+          <Menu.Item as='a'>
+            <Icon name='home' />
+            Home
+          </Menu.Item>
+          <Menu.Item as='a'>
+            <Icon name='gamepad' />
+            Games
+          </Menu.Item>
+          <Menu.Item as='a'>
+            <Icon name='camera' />
+            Channels
+          </Menu.Item>
+        </Sidebar>
+
         <Header as="h1">
           Cook Smart
           <Header.Subheader>Find Recipes for the Ingredients You Already Have</Header.Subheader>
@@ -29,10 +46,11 @@ class LoggedOutHeader extends React.Component {
   }
 }
 
-const mapStateToProps = ({ usersReducer: { user } }) => {
+const mapStateToProps = ({ usersReducer: { user, showMenuBoolean } }) => {
   return {
     user,
+    showMenuBoolean,
   }
 }
 
-export default connect(mapStateToProps, actions)(LoggedOutHeader)
+export default connect(mapStateToProps, actions)(LoggedInHeader)

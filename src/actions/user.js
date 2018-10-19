@@ -99,3 +99,11 @@ export const showLogInForm = () => ({
 export const showSignUpForm = () => ({
   type: 'SHOW_SIGN_UP_FORM',
 })
+
+export const showMenu = () => ({
+  type: 'SHOW_MENU',
+})
+
+export const hideMenu = () => ({
+  type: 'HIDE_MENU',
+})
