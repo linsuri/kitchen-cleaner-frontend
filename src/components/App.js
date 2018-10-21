@@ -8,8 +8,6 @@ import IngredientsContainer from './IngredientsContainer'
 import RecipesContainer from './RecipesContainer'
 import './App.css';
 
-// let url = `https://api.yummly.com/v1/api/recipes?_app_id=${APP_ID}&_app_key=${APP_KEY}`
-
 class App extends Component {
 
   state = {
@@ -58,9 +56,6 @@ class App extends Component {
   }
 
   getRecipes = () => {
-    // this.setAllowedIngredients()
-    // let newUrl = (url+this.state.allowedIngredients)
-    // debugger
     fetch("http://localhost:3000/api/v1/show_recipes", {
       method: "POST",
       headers: {
@@ -80,7 +75,6 @@ class App extends Component {
     })
   }
 
-  /////////////////// Params is not correct. Backend would not take params, therefore not saving.
   saveFavorite = (recipe) => {
     fetch("http://localhost:3000/api/v1/recipes", {
       method: "POST",
@@ -94,23 +88,7 @@ class App extends Component {
         }
       })
     })
-    .then(res => res.json())
-    .then(json => {console.log(json)
-      // if (json.errors) {
-      //   this.setState({
-      //     errorMesssage: json.errors,
-      //     usernameInput: ''
-      //   })
-      // } else {
-      //   this.setState({
-      //     user: json,
-      //     usernameInput: '',
-      //     loggedin: true,
-      //     showSignUpLogIn: false
-      //   }, () => console.log(this.state.user))
-      // }
-    })
-  }
+  }  
 
   render() {
     return (
