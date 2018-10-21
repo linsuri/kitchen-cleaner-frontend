@@ -7,7 +7,7 @@ import { TransitionablePortal, Segment, Header, Button } from 'semantic-ui-react
 class LoggedOutHeader extends React.Component {
 
   render() {
-    
+
     return (
       <div className="header-container">
         <Button
@@ -19,9 +19,9 @@ class LoggedOutHeader extends React.Component {
             <SignUpLogIn />
           </Segment>
         </TransitionablePortal>
-        <Header as="h1">
-          Cook Smart
-          <Header.Subheader>Find Recipes for the Ingredients You Already Have</Header.Subheader>
+        <Header as="h1" style={{fontFamily: "'Lobster', cursive", fontSize: "4em"}}>
+          Kitchen Cleaner
+          <Header.Subheader style={{fontFamily: "'Muli', sans-serif", fontSize: "0.4em"}}>Find Recipes for the Ingredients You Already Have</Header.Subheader>
         </Header>
       </div>
     )

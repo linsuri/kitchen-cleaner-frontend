@@ -37,9 +37,9 @@ class LoggedInHeader extends React.Component {
           </Menu.Item>
         </Sidebar>
 
-        <Header as="h1">
-          Cook Smart
-          <Header.Subheader>Find Recipes for the Ingredients You Already Have</Header.Subheader>
+        <Header as="h1" style={{fontFamily: "'Lobster', cursive", fontSize: "4em"}}>
+          Kitchen Cleaner
+          <Header.Subheader style={{fontFamily: "'Muli', sans-serif", fontSize: "0.4em"}}>Find Recipes for the Ingredients You Already Have</Header.Subheader>
         </Header>
       </div>
     )

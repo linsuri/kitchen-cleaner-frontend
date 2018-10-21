@@ -3,11 +3,9 @@ import { connect } from 'react-redux'
 import * as actions from  '../actions'
 import LoggedOutHeader from './LoggedOutHeader'
 import LoggedInHeader from './LoggedInHeader'
-// import AppHeader from './AppHeader'
 import SearchBar from './SearchBar'
 import IngredientsContainer from './IngredientsContainer'
 import RecipesContainer from './RecipesContainer'
-import FavoritesContainer from './FavoritesContainer'
 import './App.css';
 
 // let url = `https://api.yummly.com/v1/api/recipes?_app_id=${APP_ID}&_app_key=${APP_KEY}`
@@ -20,7 +18,6 @@ class App extends Component {
     ingredients: [],
     recipes: [],
     noResults: false,
-    showFavoritesContainer: false
   }
 
   componentDidMount() {
@@ -81,29 +78,6 @@ class App extends Component {
         this.setState({noResults: true})
       }
     })
-    // fetch(`${newUrl}`)
-    // .then(res => res.json())
-    // .then(json => {
-    //   this.setState({recipes: json.matches})
-    // })
-  }
-
-  showFavoritesContainer = () => {
-    this.setState({
-      showFavoritesContainer: true
-    })
-  }
-
-  hideFavoritesContainer = event => {
-    // event.target.parentNode.className = "hide-favorites-container"
-    // console.log(event.target.parentNode)
-    // debugger
-    // this.changeState()
-    // setTimeout(() => {
-      this.setState({
-        showFavoritesContainer: false
-      })
-    // }, 2000)
   }
 
   changeState = () => {
@@ -143,31 +117,26 @@ class App extends Component {
   }
 
   render() {
-    // console.log(this.signUpLogIn);
     return (
       <div>
         {this.props.loggedIn ? <LoggedInHeader /> : <LoggedOutHeader />}
         <SearchBar
           handleIngredientSubmit={this.handleIngredientSubmit}
           handleChange={this.handleChange}
-          hideSignUpLogIn={this.hideSignUpLogIn}
           ingredientInput={this.state.ingredientInput}
         />
         <IngredientsContainer
           ingredients={this.state.ingredients}
           setAllowedIngredients={this.setAllowedIngredients}
           removeIngredient={this.removeIngredient}
-          hideSignUpLogIn={this.hideSignUpLogIn}
           reset={this.reset}
         />
         <RecipesContainer
           ingredients={this.state.ingredients}
           recipes={this.state.recipes}
           noResults={this.state.noResults}
-          hideFavoritesContainer={this.hideFavoritesContainer}
           saveFavorite={this.saveFavorite}
         />
-        {this.state.showFavoritesContainer ? <FavoritesContainer hideSignUpLogIn={this.hideSignUpLogIn} hideFavoritesContainer={this.hideFavoritesContainer} /> : null}
       </div>
     );
   }

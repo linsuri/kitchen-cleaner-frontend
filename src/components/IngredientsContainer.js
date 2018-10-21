@@ -8,9 +8,11 @@ const IngredientsContainer = (props) => {
 
   let showButtons = () => {
     return (
-      <div style={{width:'100%'}} onClick={props.hideSignUpLogIn}>
-        <Button style={{margin:'10px'}} size="big" fluid onClick={props.setAllowedIngredients}>Get Recipes</Button>
-        <Button size="tiny" onClick={props.reset}>Reset</Button>
+      <div style={{width:'100%'}}>
+        <div style={{width:'70%', margin:'auto'}}>
+          <Button style={{margin:'10px'}} size="huge" fluid onClick={props.setAllowedIngredients}>Get Recipes</Button>
+          <Button size="tiny" onClick={props.reset}>Reset</Button>
+        </div>
       </div>
     )
   }

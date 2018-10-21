@@ -4,7 +4,7 @@ import { Container, Input } from 'semantic-ui-react'
 const SearchBar = (props) => {
 
   return (
-    <Container style={{margin:'30px'}} onClick={props.hideSignUpLogIn}>
+    <Container style={{margin:'30px'}} >
       <form onSubmit={props.handleIngredientSubmit} className="ui centered grid">
         <Input focus className="search-bar"
           size='big'
