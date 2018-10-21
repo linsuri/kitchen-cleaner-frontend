@@ -80,12 +80,6 @@ class App extends Component {
     })
   }
 
-  changeState = () => {
-    this.setState({
-        showFavoritesContainer: false
-      })
-  }
-
   /////////////////// Params is not correct. Backend would not take params, therefore not saving.
   saveFavorite = (recipe) => {
     fetch("http://localhost:3000/api/v1/recipes", {
@@ -94,8 +88,10 @@ class App extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        recipe_object: recipe,
-        user: this.state.user
+        recipe: {
+          recipe_object: recipe,
+          user_id: this.props.user.id
+        }
       })
     })
     .then(res => res.json())

@@ -42,7 +42,7 @@ const Recipe = (props) => {
               </Card.Content>
               <Card.Content extra>
                 <a>
-                  <Icon name='heart' onClick={props.saveFavorite}/>
+                  <Icon name='heart' onClick={() => props.saveFavorite(props.recipe)}/>
                 </a>
               </Card.Content>
         </Card>
