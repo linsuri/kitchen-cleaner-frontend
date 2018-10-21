@@ -71,6 +71,7 @@ class App extends Component {
       })
     })
     .then(res => res.json())
+    .then(json => console.log(json))
     .then(json => {
       if (json.matches.length !== 0) {
         this.setState({recipes: json.matches})
@@ -137,6 +138,7 @@ class App extends Component {
           noResults={this.state.noResults}
           saveFavorite={this.saveFavorite}
         />
+        <p className='footer'>Kitchen Cleaner 2018 by Lin Sriuthenchai • Recipe search powered by <a href='http://www.yummly.co/recipes'><img alt='Yummly' src='https://static.yummly.co/api-logo.png'/></a></p>
       </div>
     );
   }

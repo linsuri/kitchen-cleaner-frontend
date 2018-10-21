@@ -14,7 +14,6 @@ const Recipe = (props) => {
     if (imageUrlsBySize) {
       let formattedImage = imageUrlsBySize[90].slice(0, -6)
       return (
-        // image={formattedImage}
         <Card>
           <Image src={formattedImage} as="a" href={href} target="_blank" />
           <Card.Content as="a" href={href} target="_blank">
