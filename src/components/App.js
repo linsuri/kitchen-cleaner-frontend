@@ -71,7 +71,6 @@ class App extends Component {
       })
     })
     .then(res => res.json())
-    .then(json => console.log(json))
     .then(json => {
       if (json.matches.length !== 0) {
         this.setState({recipes: json.matches})
