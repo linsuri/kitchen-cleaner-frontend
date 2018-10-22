@@ -59,7 +59,7 @@ class App extends Component {
 
   getRecipes = () => {
     this.setState({fetching: true})
-    fetch("http://kitchen-cleaner-backend.herokuapp.com/api/v1/show_recipes", {
+    fetch("https://kitchen-cleaner-backend.herokuapp.com/api/v1/show_recipes", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -79,7 +79,7 @@ class App extends Component {
   }
 
   saveFavorite = (recipe) => {
-    fetch("http://kitchen-cleaner-backend.herokuapp.com/api/v1/recipes", {
+    fetch("https://kitchen-cleaner-backend.herokuapp.com/api/v1/recipes", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ class App extends Component {
   }
 
   unsaveFavorite = (recipe) => {
-    fetch("http://kitchen-cleaner-backend.herokuapp.com/api/v1/recipes", {
+    fetch("https://kitchen-cleaner-backend.herokuapp.com/api/v1/recipes", {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json'
@@ -135,7 +135,7 @@ class App extends Component {
           saveFavorite={this.saveFavorite}
           unsaveFavorite={this.unsaveFavorite}
         />
-        <p className='footer'>Kitchen Cleaner 2018 by Lin Sriuthenchai • Recipe search powered by <a href='http://www.yummly.co/recipes'><img alt='Yummly' src='https://static.yummly.co/api-logo.png'/></a></p>
+        <p className='footer'>Kitchen Cleaner 2018 by Lin Sriuthenchai • Recipe search powered by <a href='https://www.yummly.co/recipes'><img alt='Yummly' src='httpss://static.yummly.co/api-logo.png'/></a></p>
       </div>
     );
   }
