@@ -135,7 +135,7 @@ class App extends Component {
           saveFavorite={this.saveFavorite}
           unsaveFavorite={this.unsaveFavorite}
         />
-        <p className='footer'>Kitchen Cleaner 2018 by Lin Sriuthenchai • Recipe search powered by <a href='https://www.yummly.co/recipes'><img alt='Yummly' src='httpss://static.yummly.co/api-logo.png'/></a></p>
+        <p className='footer'>Kitchen Cleaner 2018 by Lin Sriuthenchai • Recipe search powered by <a href='https://www.yummly.co/recipes'><img alt='Yummly' src='https://static.yummly.co/api-logo.png'/></a></p>
       </div>
     );
   }
