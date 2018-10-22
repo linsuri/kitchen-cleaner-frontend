@@ -6,6 +6,7 @@ import LoggedInHeader from './LoggedInHeader'
 import SearchBar from './SearchBar'
 import IngredientsContainer from './IngredientsContainer'
 import RecipesContainer from './RecipesContainer'
+import { Dimmer, Loader } from 'semantic-ui-react'
 import './App.css';
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
     ingredientInput: '',
     allowedIngredients: '',
     ingredients: [],
+    fetching: false,
     recipes: [],
     noResults: false,
   }
@@ -56,6 +58,7 @@ class App extends Component {
   }
 
   getRecipes = () => {
+    this.setState({fetching: true})
     fetch("http://localhost:3000/api/v1/show_recipes", {
       method: "POST",
       headers: {
@@ -68,9 +71,9 @@ class App extends Component {
     .then(res => res.json())
     .then(json => {
       if (json.matches.length !== 0) {
-        this.setState({recipes: json.matches})
+        this.setState({recipes: json.matches, fetching: false})
       } else {
-        this.setState({noResults: true})
+        this.setState({noResults: true, fetching: false})
       }
     })
   }
@@ -112,6 +115,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        {this.state.fetching ? <Dimmer active inverted><Loader inverted /></Dimmer> : null}
         {this.props.loggedIn ? <LoggedInHeader unsaveFavorite={this.unsaveFavorite}/> : <LoggedOutHeader />}
         <SearchBar
           handleIngredientSubmit={this.handleIngredientSubmit}
