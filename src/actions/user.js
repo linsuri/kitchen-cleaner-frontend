@@ -1,6 +1,6 @@
 export const signUp = (user_name, password) => {
   return (dispatch) => {
-    fetch("http://localhost:3000/api/v1/users", {
+    fetch("http://kitchen-cleaner-backend.herokuapp.com/api/v1/users", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export const signUp = (user_name, password) => {
 
 export const logIn = (user_name, password) => {
   return (dispatch) => {
-    fetch("http://localhost:3000/api/v1/login", {
+    fetch("http://kitchen-cleaner-backend.herokuapp.com/api/v1/login", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export const logIn = (user_name, password) => {
 
 export const fetchCurrentUser = () => {
   return (dispatch) => {
-    fetch("http://localhost:3000/api/v1/profile", {
+    fetch("http://kitchen-cleaner-backend.herokuapp.com/api/v1/profile", {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`

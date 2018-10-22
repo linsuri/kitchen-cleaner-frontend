@@ -59,7 +59,7 @@ class App extends Component {
 
   getRecipes = () => {
     this.setState({fetching: true})
-    fetch("http://localhost:3000/api/v1/show_recipes", {
+    fetch("http://kitchen-cleaner-backend.herokuapp.com/api/v1/show_recipes", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -79,7 +79,7 @@ class App extends Component {
   }
 
   saveFavorite = (recipe) => {
-    fetch("http://localhost:3000/api/v1/recipes", {
+    fetch("http://kitchen-cleaner-backend.herokuapp.com/api/v1/recipes", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ class App extends Component {
   }
 
   unsaveFavorite = (recipe) => {
-    fetch("http://localhost:3000/api/v1/recipes", {
+    fetch("http://kitchen-cleaner-backend.herokuapp.com/api/v1/recipes", {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json'
