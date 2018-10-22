@@ -88,6 +88,8 @@ class App extends Component {
         }
       })
     })
+    .then(res => res.json())
+    .then(json => this.props.addSavedRecipe(json.recipe))
   }
 
   unsaveFavorite = (recipe) => {
@@ -103,6 +105,8 @@ class App extends Component {
         }
       })
     })
+    .then(res => res.json())
+    .then(json => this.props.deleteSavedRecipe(json.recipe))
   }
 
   render() {

@@ -59,6 +59,22 @@ const usersReducer = (state = defaultState, action) => {
         ...state,
         showMenuBoolean: false,
       }
+    case 'ADD_SAVED_RECIPE':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          recipes: [...state.user.recipes, action.payload]
+        }
+      }
+    case 'DELETE_SAVED_RECIPE':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          recipes: state.user.recipes.filter(recipe => recipe.id !== action.payload.id)
+        }
+      }
     default:
       return state
   }

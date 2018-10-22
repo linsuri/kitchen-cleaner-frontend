@@ -107,3 +107,13 @@ export const showMenu = () => ({
 export const hideMenu = () => ({
   type: 'HIDE_MENU',
 })
+
+export const addSavedRecipe = recipe_object => ({
+  type: 'ADD_SAVED_RECIPE',
+  payload: recipe_object,
+})
+
+export const deleteSavedRecipe = recipe_object => ({
+  type: 'DELETE_SAVED_RECIPE',
+  payload: recipe_object,
+})

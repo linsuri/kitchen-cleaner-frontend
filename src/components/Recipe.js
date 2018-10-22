@@ -19,6 +19,14 @@ class Recipe extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.user.recipes !== prevProps.user.recipes) {
+      if (!this.props.user.recipes.find(recipe => recipe.recipe_object.id === this.props.recipe.id)) {
+        this.setState({heartColor: 'grey'})
+      }
+    }
+  }
+
   handleLike = () => {
     if (this.props.loggedIn) {
       if (this.state.heartColor === 'red') {
@@ -79,11 +87,9 @@ class Recipe extends React.Component {
     }
 
     return (
-      // <div className='ui four wide column'>
-        <div>
-          {renderImages()}
-        </div>
-      // </div>
+      <div>
+        {renderImages()}
+      </div>
     )
   }
 
