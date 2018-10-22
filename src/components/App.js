@@ -88,12 +88,27 @@ class App extends Component {
         }
       })
     })
-  }  
+  }
+
+  unsaveFavorite = (recipe) => {
+    fetch("http://localhost:3000/api/v1/recipes", {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        recipe: {
+          recipe_object: recipe,
+          user_id: this.props.user.id
+        }
+      })
+    })
+  }
 
   render() {
     return (
       <div>
-        {this.props.loggedIn ? <LoggedInHeader /> : <LoggedOutHeader />}
+        {this.props.loggedIn ? <LoggedInHeader unsaveFavorite={this.unsaveFavorite}/> : <LoggedOutHeader />}
         <SearchBar
           handleIngredientSubmit={this.handleIngredientSubmit}
           handleChange={this.handleChange}
@@ -110,6 +125,7 @@ class App extends Component {
           recipes={this.state.recipes}
           noResults={this.state.noResults}
           saveFavorite={this.saveFavorite}
+          unsaveFavorite={this.unsaveFavorite}
         />
         <p className='footer'>Kitchen Cleaner 2018 by Lin Sriuthenchai • Recipe search powered by <a href='http://www.yummly.co/recipes'><img alt='Yummly' src='https://static.yummly.co/api-logo.png'/></a></p>
       </div>

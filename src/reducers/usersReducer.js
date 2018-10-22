@@ -29,6 +29,7 @@ const usersReducer = (state = defaultState, action) => {
         loggedIn: false,
         failedLogin: false,
         error: null,
+        showMenuBoolean: false,
       }
     case 'OPEN_SIGN_UP_LOG_IN':
       return {

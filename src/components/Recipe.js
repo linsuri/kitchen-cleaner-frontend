@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import * as actions from  '../actions'
 import { Card, Icon, Image } from 'semantic-ui-react'
 
 class Recipe extends React.Component {
@@ -9,13 +10,25 @@ class Recipe extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.user.recipes.length > 0) {
-      !!this.props.user.recipes.find(recipe => recipe.recipe_object.id === this.props.recipe.id) ? this.setState({heartColor: 'red'}) : null
+    if (this.props.loggedIn) {
+      if (this.props.user.recipes.length > 0) {
+        if (!!this.props.user.recipes.find(recipe => recipe.recipe_object.id === this.props.recipe.id)) {
+          this.setState({heartColor: 'red'})
+        }
+      }
     }
   }
 
   handleLike = () => {
-    this.setState({heartColor: 'red'}, () => this.props.saveFavorite(this.props.recipe))
+    if (this.props.loggedIn) {
+      if (this.state.heartColor === 'red') {
+        this.setState({heartColor: 'grey'}, () => this.props.unsaveFavorite(this.props.recipe))
+      } else {
+        this.setState({heartColor: 'red'}, () => this.props.saveFavorite(this.props.recipe))
+      }
+    } else {
+      this.props.openSignUpLogIn()
+    }
   }
 
   render() {
@@ -66,11 +79,11 @@ class Recipe extends React.Component {
     }
 
     return (
-      <div className='ui four wide column'>
+      // <div className='ui four wide column'>
         <div>
           {renderImages()}
         </div>
-      </div>
+      // </div>
     )
   }
 
@@ -83,4 +96,4 @@ const mapStateToProps = ({ usersReducer: { user, loggedIn } }) => {
   }
 }
 
-export default connect(mapStateToProps, null)(Recipe)
+export default connect(mapStateToProps, actions)(Recipe)

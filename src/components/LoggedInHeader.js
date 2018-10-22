@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from  '../actions'
-import { Header, Icon, Menu, Sidebar } from 'semantic-ui-react'
+import SidebarMenu from './SidebarMenu'
+import { Header, Icon } from 'semantic-ui-react'
 
 class LoggedInHeader extends React.Component {
 
@@ -13,29 +14,7 @@ class LoggedInHeader extends React.Component {
 
         <Icon name='bars' link size='big' style={{position:'absolute', top:'18px', right:'15px'}} onClick={this.props.showMenu}/>
 
-        <Sidebar
-          as={Menu}
-          animation='overlay'
-          icon='labeled'
-          direction='right'
-          onHide={this.props.hideMenu}
-          vertical
-          visible={this.props.showMenuBoolean}
-          width='very wide'
-        >
-          <Menu.Item as='a'>
-            <Icon name='home' />
-            Home
-          </Menu.Item>
-          <Menu.Item as='a'>
-            <Icon name='gamepad' />
-            Games
-          </Menu.Item>
-          <Menu.Item as='a'>
-            <Icon name='camera' />
-            Channels
-          </Menu.Item>
-        </Sidebar>
+        <SidebarMenu unsaveFavorite={this.props.unsaveFavorite}/>
 
         <Header as="h1" style={{fontFamily: "'Lobster', cursive", fontSize: "4em"}}>
           Kitchen Cleaner
@@ -49,7 +28,6 @@ class LoggedInHeader extends React.Component {
 const mapStateToProps = ({ usersReducer: { user, showMenuBoolean } }) => {
   return {
     user,
-    showMenuBoolean,
   }
 }
 

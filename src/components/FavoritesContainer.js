@@ -1,79 +1,54 @@
 import React from 'react'
-import { Icon } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import * as actions from  '../actions'
+import Recipe from './Recipe.js'
+import { Message, Pagination } from 'semantic-ui-react'
 
-const FavoritesContainer = (props) => {
-console.log(props)
-  // console.log(props)
+class FavoritesContainer extends React.Component {
 
-  // const hideFavoritesContainer = event => {
-  //   event.target.parentNode.className = "hide-favorites-container"
-  //   props.hideFavoritesContainer()
-  // }
+  state = {
+    activePage: 1,
+  }
 
-  // const favorites = event => {
-  //   event.target.parentNode.className = "hide-favorites-container"
-  //   debugger
-  //   props.hideFavoritesContainer(event)
-  // }
+  componentDidUpdate() {
+    window.scrollTo(0, 0)
+  }
 
-  //////////////////////////////// Not completed. Need to fetch all recipes of the current user and render with map on here.
-  return (
-    <div className="show-favorites-container">
-      <Icon name='delete' onClick={props.hideFavoritesContainer}/>
-    </div>
-  )
+  recipesArr = () => {
+    if (this.props.user.recipes.length !== 0) {
+      return this.props.user.recipes.slice((this.state.activePage-1)*4, this.state.activePage*4).map(recipe => <div className='ui eight wide column' key={recipe.id}><Recipe key={recipe.id} recipe={recipe.recipe_object} saveFavorite={this.props.saveFavorite} unsaveFavorite={this.props.unsaveFavorite}/></div>)
+    }
+  }
+
+  handlePaginationChange = (event, data) => {
+    this.setState({activePage: data.activePage})
+  }
+
+  pagination = () => {
+    return (
+      <div style={{margin:'auto', display:'grid'}}>
+        <Pagination style={{margin:'auto', marginBottom:'50px'}}  activePage={this.state.activePage} onPageChange={this.handlePaginationChange} totalPages={Math.ceil(this.props.user.recipes.length/4)} />
+      </div>
+    )
+  }
+
+  render() {
+    return (
+      <div>
+        <div className='ui grid container' style={{margin:'60px 30px'}}>
+          {this.props.user.recipes.length !== 0 ? this.recipesArr() : <div className='ui grid container centered' style={{padding: '30px'}}><Message size="large" header="You don't have any favorites." content='Click on the heart icon to save a menu to your list of favorites the next time you search.' /></div>}
+        </div>
+        {this.props.user.recipes.length !== 0 ? this.pagination() : null}
+      </div>
+    )
+
+  }
 }
 
-export default FavoritesContainer
+const mapStateToProps = ({ usersReducer: { user, showMenuBoolean } }) => {
+  return {
+    user,
+  }
+}
 
-
-
-
-
-
-
-// import React from 'react'
-// import { Tab, Form, Button, Message } from 'semantic-ui-react'
-//
-// const FavoritesContainer = (props) => {
-//
-//   console.log(props)
-//
-//   const panes = [
-//     { menuItem: 'Log In', render: () => {
-//       return (
-//         <Tab.Pane style={{width:'400px', height:'280px'}}>
-//           <Form style={{padding:'30px'}} onSubmit={props.logIn}>
-//             <Form.Field>
-//               <label>Username</label>
-//               <input placeholder='Username' value={props.usernameInput} onChange={props.handleUsernameInput} />
-//             </Form.Field>
-//             <Button type='submit'>Log In</Button>
-//           </Form>
-//         </Tab.Pane>
-//       )
-//     }},
-//     { menuItem: 'Sign Up', render: () => {
-//       return (
-//         <Tab.Pane style={{width:'400px', height:'280px'}}>
-//           <Form error style={{padding:'30px'}} onSubmit={props.signUp}>
-//             <Form.Field>
-//               <label>Username</label>
-//               <input placeholder='Username' value={props.usernameInput} onChange={props.handleUsernameInput} />
-//             </Form.Field>
-//             {props.errorMesssage ? <Message error content={props.errorMesssage}/> : null}
-//             <Button type='submit'>Sign Up</Button>
-//           </Form>
-//         </Tab.Pane>
-//       )
-//     }}
-//   ]
-//
-//   return (
-//     <div className="sign-up-log-in">
-//       <Tab panes={panes}/>
-//     </div>
-//   )
-// }
-//
-// export default FavoritesContainer
+export default connect(mapStateToProps, actions)(FavoritesContainer)

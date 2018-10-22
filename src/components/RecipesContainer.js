@@ -7,7 +7,6 @@ class RecipesContainer extends React.Component {
 
   state = {
     activePage: 1,
-    // sliceFirstNum
   }
 
   componentDidUpdate() {
@@ -16,7 +15,7 @@ class RecipesContainer extends React.Component {
 
   recipesArr = () => {
     if (this.props.recipes.length !== 0) {
-      return this.props.recipes.slice((this.state.activePage-1)*20, this.state.activePage*20).map(recipe => <Recipe key={recipe.id} recipe={recipe} saveFavorite={this.props.saveFavorite} />)
+      return this.props.recipes.slice((this.state.activePage-1)*20, this.state.activePage*20).map(recipe => <div className='ui four wide column' key={recipe.id}><Recipe key={recipe.id} recipe={recipe} saveFavorite={this.props.saveFavorite} unsaveFavorite={this.props.unsaveFavorite}/></div>)
     }
   }
 
