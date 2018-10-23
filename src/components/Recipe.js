@@ -20,8 +20,20 @@ class Recipe extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.user.recipes !== prevProps.user.recipes) {
-      if (!this.props.user.recipes.find(recipe => recipe.recipe_object.id === this.props.recipe.id)) {
+    if (this.props.loggedIn && prevProps.loggedIn) {
+      if (this.props.user.recipes !== prevProps.user.recipes) {
+        if (!this.props.user.recipes.find(recipe => recipe.recipe_object.id === this.props.recipe.id)) {
+          this.setState({heartColor: 'grey'})
+        }
+      }
+    } else if (this.props.loggedIn && !prevProps.loggedIn) {
+      if (this.props.user.recipes.length > 0) {
+        if (!!this.props.user.recipes.find(recipe => recipe.recipe_object.id === this.props.recipe.id)) {
+          this.setState({heartColor: 'red'})
+        }
+      }
+    } else {
+      if (this.state.heartColor !== 'grey') {
         this.setState({heartColor: 'grey'})
       }
     }
