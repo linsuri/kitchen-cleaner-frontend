@@ -30,7 +30,7 @@ class App extends Component {
     event.preventDefault()
     if (this.state.ingredientInput !== '') {
       this.setState({
-        ingredients: [...this.state.ingredients, this.state.ingredientInput],
+        ingredients: [...this.state.ingredients, this.state.ingredientInput.toLowerCase()],
         ingredientInput: '',
         noResults: false
       })
