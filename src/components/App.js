@@ -113,7 +113,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props.authenticatingUser)
     return (
       <div>
         {this.state.fetching || this.props.authenticatingUser ? <Dimmer style={{zIndex: 3}} active inverted><Loader inverted /></Dimmer> : null}
