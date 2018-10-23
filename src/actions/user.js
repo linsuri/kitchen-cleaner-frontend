@@ -30,6 +30,7 @@ export const signUp = (user_name, password) => {
 
 export const logIn = (user_name, password) => {
   return (dispatch) => {
+    dispatch({ type: 'AUTHENTICATING_USER' })
     fetch("https://kitchen-cleaner-backend.herokuapp.com/api/v1/login", {
       method: 'POST',
       headers: {
@@ -60,6 +61,7 @@ export const logIn = (user_name, password) => {
 
 export const fetchCurrentUser = () => {
   return (dispatch) => {
+    dispatch({ type: 'AUTHENTICATING_USER' })
     fetch("https://kitchen-cleaner-backend.herokuapp.com/api/v1/profile", {
       method: 'GET',
       headers: {
@@ -87,6 +89,8 @@ export const logOut = () => {
     dispatch({ type: 'LOG_OUT' })
   }
 }
+
+// export const authenticatingUser = () => ({ type: 'AUTHENTICATING_USER' })
 
 export const openSignUpLogIn = () => ({
   type: 'OPEN_SIGN_UP_LOG_IN',

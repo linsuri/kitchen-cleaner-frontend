@@ -113,9 +113,10 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props.authenticatingUser)
     return (
       <div>
-        {this.state.fetching ? <Dimmer active inverted><Loader inverted /></Dimmer> : null}
+        {this.state.fetching || this.props.authenticatingUser ? <Dimmer style={{zIndex: 3}} active inverted><Loader inverted /></Dimmer> : null}
         {this.props.loggedIn ? <LoggedInHeader unsaveFavorite={this.unsaveFavorite}/> : <LoggedOutHeader />}
         <SearchBar
           handleIngredientSubmit={this.handleIngredientSubmit}
@@ -141,10 +142,11 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ usersReducer: { user, loggedIn } }) => {
+const mapStateToProps = ({ usersReducer: { user, loggedIn, authenticatingUser } }) => {
   return {
     user,
     loggedIn,
+    authenticatingUser,
   }
 }
 

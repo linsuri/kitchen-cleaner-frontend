@@ -1,5 +1,6 @@
 const defaultState = {
   user: null,
+  authenticatingUser: false,
   loggedIn: false,
   failedLogin: false,
   error: null,
@@ -15,12 +16,19 @@ const usersReducer = (state = defaultState, action) => {
         ...state,
         user: action.payload,
         loggedIn: true,
+        authenticatingUser: false,
       }
+    case 'AUTHENTICATING_USER':
+    return {
+      ...state,
+      authenticatingUser: true,
+    }
     case 'FAILED_LOGIN':
       return {
         ...state,
         failedLogin: true,
         error: action.payload,
+        authenticatingUser: false,
       }
     case 'LOG_OUT':
       return {
@@ -28,6 +36,7 @@ const usersReducer = (state = defaultState, action) => {
         user: null,
         loggedIn: false,
         failedLogin: false,
+        authenticatingUser: false,
         error: null,
         showMenuBoolean: false,
       }
