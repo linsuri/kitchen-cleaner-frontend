@@ -2,14 +2,15 @@
 
 Kitchen Cleaner is a web application that helps you find recipes for the ingredients you already have on hand (or in the back of the fridge and that are going bad soon). You can save your favorite recipes to access them again in the future. Use Kitchen Cleaner on your next meal prep and never waste any food again!
 
-## Installing / Getting started
+## Installing Locally
 
 1. Follow on the links for both the [frontend](https://github.com/linsuri/kitchen-cleaner-frontend) and [backend](https://github.com/linsuri/kitchen-cleaner-backend).
 2. Clone both of them down into separate folders on your computer.
 3. In the command line, `cd` into the backend folder and run `bundle install`.
 4. Run `rails s` to start your backend server. It should run on `localhost:3000`.
-5. Open another tab in your command line, `cd` into the backend folder and run `npm install`.
-6. Run `npm start` to start your frontend server. If you are prompted to run the server on a different port than your backend, type `y`. Your frontend server should run on `localhost:3001`.
+5. Open another tab in your command line, `cd` into the frontend folder and run `npm install`.
+6. In `src/actions/user.js` and `src/components/App.js`, change anywhere that says `https://kitchen-cleaner-backend.herokuapp.com/` to `http://localhost:3000/`.
+7. Run `npm start` to start your frontend server. If you are prompted to run the server on a different port than your backend, type `y`. Your frontend server should run on `localhost:3001`.
 
 After you run `npm start`, a tab in your browser should open automatically.
 
